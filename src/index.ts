@@ -4,7 +4,7 @@ import path from 'path';
 import fs from 'fs';
 
 const app = express();
-const PORT = 3000;
+const PORT = 3030;
 
 //--------------------------------------------------------------//
 // CONFIGURANDO O MULTER PARA CRIAR AS PASTAS DE FORMA DINÂMICA //
