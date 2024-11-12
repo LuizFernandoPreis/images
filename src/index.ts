@@ -1,10 +1,17 @@
 import express, { Request, Response, NextFunction } from 'express';
+import cors from 'cors'
 import multer from 'multer';
 import path from 'path';
 import fs from 'fs';
 
 const app = express();
 const PORT = 3030;
+
+app.use(cors({
+  origin: '*',
+  methods: ['GET', 'POST', 'PUT', 'DELETE'], 
+  allowedHeaders: ['Content-Type', 'Authorization'], 
+}));
 
 //--------------------------------------------------------------//
 // CONFIGURANDO O MULTER PARA CRIAR AS PASTAS DE FORMA DINÂMICA //
@@ -93,7 +100,8 @@ app.get('/images/:id/:dest', (req: Request, res: any ) => {
 // SERVIDOR RODANDO NA PORTA 3000 //
 //--------------------------------//
 app.use('/upload', express.static(path.join(__dirname, 'upload')));
-
+app.use(cors({ origin: true }))
+cors({allowedHeaders: ['Content-Type', 'Authorization']})
 
 
 app.listen(PORT, () => {
