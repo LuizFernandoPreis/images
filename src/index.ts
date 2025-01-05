@@ -1,11 +1,18 @@
 import express, { Request, Response, NextFunction } from 'express';
-import cors from 'cors'
+import cors from 'cors';
 import multer from 'multer';
 import path from 'path';
 import fs from 'fs';
+import https from 'https';
 
 const app = express();
 const PORT = 3030;
+
+// Carregar os certificados SSL
+const options = {
+  key: fs.readFileSync('../../key.pem'), // Substitua pelo caminho correto do seu arquivo key.pem
+  cert: fs.readFileSync('../../cert.pem') // Substitua pelo caminho correto do seu arquivo cert.pem
+};
 
 app.use(cors({
   origin: '*',
@@ -94,16 +101,12 @@ app.get('/images/:id/:dest', (req: Request, res: any ) => {
   res.status(200).json(files);
 });
 
-
-
 //--------------------------------//
-// SERVIDOR RODANDO NA PORTA 3000 //
+// SERVIDOR RODANDO NA PORTA 3030 //
 //--------------------------------//
 app.use('/upload', express.static(path.join(__dirname, 'upload')));
-app.use(cors({ origin: true }))
-cors({allowedHeaders: ['Content-Type', 'Authorization']})
+app.use(cors({ origin: true }));
 
-
-app.listen(PORT, () => {
-  console.log(`Servidor rodando em http://localhost:${PORT}`);
+https.createServer(options, app).listen(PORT, () => {
+  console.log(`Servidor HTTPS rodando em https://localhost:${PORT}`);
 });
