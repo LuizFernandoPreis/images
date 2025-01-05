@@ -14,7 +14,7 @@ const PORT = 3030;
 // Carregar os certificados SSL
 const options = {
     key: fs_1.default.readFileSync('../../key.pem'), // Substitua pelo caminho correto do seu arquivo key.pem
-    cert: fs_1.default.readFileSync('../../csr.pem') // Substitua pelo caminho correto do seu arquivo cert.pem
+    cert: fs_1.default.readFileSync('../../cert.pem') // Substitua pelo caminho correto do seu arquivo cert.pem
 };
 app.use((0, cors_1.default)({
     origin: '*',
